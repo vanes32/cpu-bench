@@ -56,7 +56,7 @@ done
 
 echo
 echo "Markdown Table Row:"
-printf "| %-23s | %-15s | %-12s | %-14s | %-19s | %-17s | %-22s |\n" \
-  "$device" "$version" "$threads" \
+printf "| %-23s | %-15s | %-15s | %-12s | %-14s | %-19s | %-17s | %-22s |\n" \
+  "$device" "ENTER CPU MODEL" "$version" "$threads" \
   "$int128_1thread" "$matrixprod_1thread" \
   "$int128_allthreads" "$matrixprod_allthreads"
