@@ -40,8 +40,8 @@ echo "Method       Bogo Ops/s (real time)"
 for method in $methods; do
     output=$(stress-ng --cpu 1 --cpu-method "$method" --metrics-brief --timeout ${timeout}s 2>/dev/null)
     bogo=$(echo "$output" | grep -E "^\s*stress-ng: metrc:" | grep "cpu" | awk '{print $(NF-1)}')
-    printf "%-12s %s\n" "$method" "${bogo:-not_supported}"
-    eval "${method}_1thread=${bogo:-not_supported}"
+    printf "%-12s %s\n" "$method" "${bogo:-n/s}"
+    eval "${method}_1thread=${bogo:-n/s}"
 done
 
 echo
@@ -51,8 +51,8 @@ echo "Method       Bogo Ops/s (real time)"
 for method in $methods; do
     output=$(stress-ng --cpu "$threads" --cpu-method "$method" --metrics-brief --timeout ${timeout}s 2>/dev/null)
     bogo=$(echo "$output" | grep -E "^\s*stress-ng: metrc:" | grep "cpu" | awk '{print $(NF-1)}')
-    printf "%-12s %s\n" "$method" "${bogo:-not_supported}"
-    eval "${method}_allthreads=${bogo:-not_supported}"
+    printf "%-12s %s\n" "$method" "${bogo:-n/s}"
+    eval "${method}_allthreads=${bogo:-n/s}"
 done
 
 echo
