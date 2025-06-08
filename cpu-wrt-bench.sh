@@ -26,6 +26,7 @@ if ! command -v stress-ng >/dev/null 2>&1; then
 fi
 
 echo "== CPU Openwrt Benchmark =="
+echo "https://github.com/itdoginfo/cpu-wrt-bench"
 echo
 echo "Device:        $device"
 echo "Version:       $version"
@@ -40,7 +41,7 @@ for method in $methods; do
     output=$(stress-ng --cpu 1 --cpu-method "$method" --metrics-brief --timeout ${timeout}s 2>/dev/null)
     bogo=$(echo "$output" | grep -E "^\s*stress-ng: metrc:" | grep "cpu" | awk '{print $(NF-1)}')
     printf "%-12s %s\n" "$method" "${bogo:-fail}"
-    eval "${method}_1thread=${bogo:-0}"
+    eval "${method}_1thread=${bogo:-fail}"
 done
 
 echo
@@ -51,7 +52,7 @@ for method in $methods; do
     output=$(stress-ng --cpu "$threads" --cpu-method "$method" --metrics-brief --timeout ${timeout}s 2>/dev/null)
     bogo=$(echo "$output" | grep -E "^\s*stress-ng: metrc:" | grep "cpu" | awk '{print $(NF-1)}')
     printf "%-12s %s\n" "$method" "${bogo:-fail}"
-    eval "${method}_allthreads=${bogo:-0}"
+    eval "${method}_allthreads=${bogo:-fail}"
 done
 
 echo
