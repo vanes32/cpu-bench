@@ -1,6 +1,6 @@
 #!/bin/ash
 
-methods="int128 matrixprod"
+methods="int64 matrixprod"
 timeout=30
 threads=$(grep -c ^processor /proc/cpuinfo)
 
