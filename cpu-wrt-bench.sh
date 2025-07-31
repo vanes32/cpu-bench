@@ -13,10 +13,17 @@ if ! command -v stress-ng >/dev/null 2>&1; then
     read answer
     case "$answer" in
         [yY][eE][sS]|[yY])
-            opkg update && opkg install stress-ng || {
-                echo "Failed to install stress-ng"
-                exit 1
-            }
+            if command -v opkg >/dev/null 2>&1; then
+                opkg update && opkg install stress-ng || {
+                    echo "Failed to install stress-ng"
+                    exit 1
+                }
+            elif command -v apk >/dev/null 2>&1; then
+                apk add stress-ng || {
+                    echo "Failed to install stress-ng"
+                    exit 1
+                }
+            fi
             ;;
         *)
             echo "Exit"
