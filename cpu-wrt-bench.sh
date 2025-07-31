@@ -4,7 +4,7 @@ methods="int64 matrixprod"
 timeout=30
 threads=$(grep -c ^processor /proc/cpuinfo)
 
-device=$(cat /tmp/sysinfo/model)
+device=$(cat /tmp/sysinfo/model 2>/dev/null || echo "Unknown Device")
 version=$(grep OPENWRT_RELEASE /etc/os-release | cut -d'"' -f2 | cut -d' ' -f1,2)
 
 if ! command -v stress-ng >/dev/null 2>&1; then
